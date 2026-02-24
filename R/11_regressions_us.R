@@ -15,11 +15,11 @@
 source("R/00_config.R")
 
 suppressPackageStartupMessages({
-  library(sandwich)      # NeweyWest()
-  library(lmtest)        # coeftest()
-  library(modelsummary)  # regression tables
-  library(broom)         # tidy()
-  library(patchwork)     # combine figures
+  library(sandwich)    # NeweyWest()
+  library(lmtest)      # coeftest()
+  library(stargazer)   # regression tables
+  library(broom)       # tidy()
+  library(patchwork)   # combine figures
 })
 
 log_info("=== 11_regressions_us.R: US-only regressions ===")
@@ -69,25 +69,66 @@ models <- list(
   "(4) Δ CAPE"        = m4
 )
 
-# Save nicely formatted table
-ols_tbl <- modelsummary(
-  models,
-  vcov     = lapply(models, nw12),
-  stars    = c("*" = 0.10, "**" = 0.05, "***" = 0.01),
-  gof_map  = c("nobs", "r.squared", "adj.r.squared"),
-  coef_rename = c(
-    cb_gdp_ratio = "CB/GDP ratio",
-    delta_cb_gdp = "Δ CB/GDP (YoY pp)",
-    real_rate    = "Real 10Y rate",
-    cpi_yoy      = "CPI inflation (YoY)",
-    gdp_yoy      = "GDP growth (YoY)",
-    vix          = "VIX",
-    trend        = "Time trend (years)"
-  ),
-  output = "data.frame"
+# Newey-West SEs and p-values for each model (passed directly to stargazer)
+se_nw <- lapply(list(m1, m2, m3, m4), function(m)
+  sqrt(diag(NeweyWest(m, lag = 12, prewhite = FALSE))))
+
+p_nw <- lapply(seq_along(list(m1, m2, m3, m4)), function(i) {
+  m  <- list(m1, m2, m3, m4)[[i]]
+  ct <- coeftest(m, vcov = NeweyWest(m, lag = 12, prewhite = FALSE))
+  ct[, "Pr(>|t|)"]
+})
+
+coef_labels <- c(
+  "CB/GDP ratio (%)",
+  "\\$\\Delta\\$ CB/GDP (YoY pp)",
+  "Real 10Y rate (%)",
+  "CPI inflation YoY (%)",
+  "Real GDP growth YoY (%)",
+  "VIX",
+  "Time trend (years)"
 )
-write.csv(ols_tbl, file.path(DIR_LOGS, "us_ols_results.csv"), row.names = FALSE)
-log_info("Saved: us_ols_results.csv")
+
+# HTML table — for standalone viewing
+stargazer(
+  m1, m2, m3, m4,
+  se             = se_nw,
+  p              = p_nw,
+  type           = "html",
+  out            = file.path(DIR_LOGS, "us_ols_table.html"),
+  title          = "US CAPE and Fed Balance Sheet Expansion — OLS Estimates",
+  dep.var.labels = c("CAPE", "CAPE", "CAPE", "&Delta; CAPE"),
+  column.labels  = c("(1) Level", "(2) &Delta; CB/GDP", "(3) + Trend", "(4) &Delta; CAPE"),
+  covariate.labels = coef_labels,
+  omit.stat      = c("f", "ser"),
+  notes          = "Newey-West HAC standard errors (12-month bandwidth) in parentheses.",
+  notes.append   = FALSE,
+  star.cutoffs   = c(0.10, 0.05, 0.01)
+)
+log_info("Saved: us_ols_table.html")
+
+# Plain-text table — for embedding in the report
+txt_table <- capture.output(
+  stargazer(
+    m1, m2, m3, m4,
+    se             = se_nw,
+    p              = p_nw,
+    type           = "text",
+    title          = "US CAPE and Fed Balance Sheet Expansion",
+    dep.var.labels = c("CAPE", "CAPE", "CAPE", "D.CAPE"),
+    column.labels  = c("(1) Level", "(2) D.CB/GDP", "(3) +Trend", "(4) D.CAPE"),
+    covariate.labels = c(
+      "CB/GDP ratio (%)", "D.CB/GDP (YoY pp)", "Real 10Y rate (%)",
+      "CPI infl. YoY (%)", "GDP growth YoY (%)", "VIX", "Trend (yrs)"
+    ),
+    omit.stat      = c("f", "ser"),
+    notes          = "NW-HAC SEs (lag=12) in parentheses. * p<0.1 ** p<0.05 *** p<0.01",
+    notes.append   = FALSE,
+    star.cutoffs   = c(0.10, 0.05, 0.01)
+  )
+)
+writeLines(txt_table, file.path(DIR_LOGS, "us_ols_table.txt"))
+log_info("Saved: us_ols_table.txt")
 
 # Extract key coefficients for the report
 extract_coef <- function(model, coef_name, lag = 12) {

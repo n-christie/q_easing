@@ -532,14 +532,48 @@ Four specifications test how sensitive the CB/GDP–CAPE relationship is to detr
 
 All specifications include real 10Y interest rate, CPI inflation (YoY), real GDP growth (YoY), and VIX as controls.
 
-**Results:**
+**Results** (Newey-West HAC standard errors, 12-month bandwidth, in parentheses):
 
-| Spec | CB/GDP coefficient | SE | Significance |
-|------|-------------------|-----|-------------|
-| (1) Level CB/GDP → CAPE | +0.95 CAPE pts per 1pp | 0.43 | ** |
-| (2) Δ CB/GDP → CAPE | +1.29 CAPE pts per 1pp | 0.89 | n.s. |
-| (3) Level + trend → CAPE | −0.44 CAPE pts per 1pp | 0.40 | n.s. |
-| (4) Δ CB/GDP → Δ CAPE | +0.31 CAPE pts per 1pp | 0.09 | *** |
+```
+======================================================================================
+                                           Dependent variable:
+                   -------------------------------------------------------------------
+                                          CAPE                              CAPE
+                      (1) Level       (2) D.CB/GDP      (3) +Trend       (4) D.CAPE
+--------------------------------------------------------------------------------------
+CB/GDP ratio (%)       0.948**                            -0.437
+                       (0.431)                           (0.404)
+
+D.CB/GDP (YoY pp)                        1.286                            0.311***
+                                        (0.888)                           (0.093)
+
+Real 10Y rate (%)       -0.420          -1.398**          -0.159           -0.018
+                       (0.928)          (0.624)          (0.927)          (0.055)
+
+CPI infl. YoY (%)       0.003            -0.788           0.061            -0.021
+                       (0.824)          (0.513)          (0.867)          (0.083)
+
+GDP growth YoY (%)      0.390*          0.707***          0.371            -0.050
+                       (0.222)          (0.191)          (0.257)          (0.045)
+
+VIX                   -0.197***        -0.240***        -0.159***        -0.072***
+                       (0.035)          (0.047)          (0.030)          (0.014)
+
+Trend (yrs)                                              0.712***
+                                                         (0.168)
+
+Constant              23.694***        29.770***        22.880***         1.608***
+                       (4.496)          (2.711)          (4.369)          (0.252)
+
+--------------------------------------------------------------------------------------
+Observations             213              213              213              213
+R²                      0.620            0.591            0.717            0.379
+Adjusted R²             0.611            0.581            0.709            0.364
+======================================================================================
+Note: NW-HAC SEs (lag=12) in parentheses. * p<0.1  ** p<0.05  *** p<0.01
+```
+
+Full HTML version: [`output/logs/us_ols_table.html`](output/logs/us_ols_table.html)
 
 **Interpretation:**
 
