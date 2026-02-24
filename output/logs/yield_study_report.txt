@@ -1,0 +1,74 @@
+========================================================================
+BOND YIELD EVENT STUDY REPORT — QE Announcements
+Generated: 2026-02-24 08:00:55
+========================================================================
+
+METHODOLOGY
+  Mean-adjusted model: AR_i,t = Δy_i,t - mean(Δy_i in estimation window)
+  Units: basis points (1 bp = 0.01 percentage points)
+  Sign: CAYC < 0 = yields fell (bond prices rose) = expected for easing
+  Estimation window: [-220, -20] trading days
+  Event window:      [-5, 10] trading days
+
+COVERAGE
+  Countries with daily yield data: US, EA, GB, SE
+  Events covered:  27
+  Events excluded: 9 (no yield data for JP, CH)
+  Easing events:   24
+  Tightening:      3
+
+  expansion  (n = 11)
+    CAYC[-1,+1] = -4.0bp  |  CAYC[0,+5] = -7.6bp  |  CAYC[0,+10] = -11.0bp
+
+  initiation  (n = 11)
+    CAYC[-1,+1] = -0.6bp  |  CAYC[0,+5] = -7.5bp  |  CAYC[0,+10] = -7.6bp
+
+  restart  (n = 1)
+    CAYC[-1,+1] = +9.9bp  |  CAYC[0,+5] = +9.7bp  |  CAYC[0,+10] = +4.7bp
+
+  shock_speech  (n = 1)
+    CAYC[-1,+1] = +4.8bp  |  CAYC[0,+5] = -10.5bp  |  CAYC[0,+10] = -2.0bp
+
+-----------------------------------------------------------------------------------------------
+ID    Date        Ctry  Program         Type            CAYC[-1+1]  CAYC[0+5]  CAYC[0+10]  t[-1+1]
+-----------------------------------------------------------------------------------------------
+1     2008-11-25  US    QE1             initiation          -21.0bp     -67.9bp      -65.8bp   -1.43
+2     2009-03-18  US    QE1             expansion           -34.3bp     -17.7bp      -27.9bp   -2.14**
+3     2010-11-03  US    QE2             initiation          -11.5bp      +5.0bp      +32.5bp   -1.11
+4     2012-09-13  US    QE3             initiation          +18.9bp      +4.9bp       -7.6bp   +2.12**
+5     2012-12-12  US    QE3             expansion           +11.6bp     +17.1bp      +10.0bp   +1.42
+6     2013-05-22  US    taper_tantrum   tapering             +4.8bp     +18.6bp      +13.3bp   +0.72
+7     2013-12-18  US    QE3_taper       tapering             +4.0bp     +12.9bp      +12.2bp   +0.45
+8     2014-10-29  US    QE3_end         end                  +5.5bp      +7.0bp       +6.9bp   +0.85
+9     2020-03-15  US    COVID_QE        initiation          +15.4bp     -15.3bp      -19.0bp   +1.95*
+10    2020-03-23  US    COVID_QE        expansion           -26.3bp     -18.5bp      -18.7bp   -3.31***
+11    2010-05-10  EA    SMP             initiation           +5.1bp      +2.0bp      -21.1bp   +0.93
+12    2012-07-26  EA    OMT_signal      shock_speech         +4.8bp     -10.5bp       -2.0bp   +0.54
+13    2012-09-06  EA    OMT             initiation           +8.8bp      +7.0bp      +15.0bp   +1.06
+14    2015-01-22  EA    APP             initiation           -6.2bp      -9.6bp       -6.5bp   -1.24
+15    2016-03-10  EA    APP             expansion            +8.1bp      -1.1bp       -5.7bp   +0.94
+16    2019-09-12  EA    APP_restart     restart              +9.9bp      +9.7bp       +4.7bp   +2.18**
+17    2020-03-18  EA    PEPP            initiation          +29.2bp     +13.1bp       -0.0bp   +5.58***
+18    2020-06-04  EA    PEPP            expansion           +13.2bp      -4.9bp       -8.6bp   +1.84*
+25    2009-03-05  GB    APF             initiation          -53.5bp     -70.2bp      -58.3bp   -4.58***
+26    2009-08-06  GB    APF             expansion            -3.5bp      -0.5bp      -16.0bp   -0.25
+27    2011-10-06  GB    APF             expansion           +21.3bp     +21.7bp      +17.4bp   +2.42**
+28    2016-08-04  GB    APF_Brexit      expansion           -16.6bp     -27.5bp      -12.2bp   -1.86*
+29    2020-03-19  GB    APF_COVID       expansion            -4.8bp     -40.3bp      -43.7bp   -0.63
+30    2015-02-12  SE    SEK_QE          initiation          -16.2bp      +0.5bp       +7.2bp   -3.00***
+31    2015-03-18  SE    SEK_QE          expansion           -10.8bp     -18.7bp      -13.2bp   -1.88*
+32    2016-02-11  SE    SEK_QE          expansion            -1.3bp      +6.5bp       -2.6bp   -0.16
+33    2020-03-12  SE    SEK_COVID       initiation          +24.7bp     +47.9bp      +39.7bp   +4.55***
+
+* p<0.10  ** p<0.05  *** p<0.01 (two-tailed)
+
+------------------------------------------------------------------------
+LIMITATIONS
+------------------------------------------------------------------------
+1. JP and CH yield data unavailable. These 9 events are equity-only.
+2. Mean-adjusted model ignores cross-country yield spillovers. For a richer
+   model, substitute a two-factor specification with US 10Y + global PC1.
+3. US CAYC values directly reflect the policy shock with no circularity (US
+   yield is the *dependent* variable, not the benchmark). The mean-adjusted
+   approach is appropriate here; no correction needed.
+

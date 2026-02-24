@@ -1,0 +1,95 @@
+========================================================================
+EVENT STUDY REPORT — QE Announcements and Equity Markets
+Generated: 2026-02-23 21:22:21
+========================================================================
+
+METHODOLOGY
+  Market model: R_i,t = alpha + beta * R_SP500,t + eps_i,t
+  Estimation window: [-220, -20] trading days
+  Event window:      [-5, 10] trading days
+  Min estimation obs: 80
+
+SAMPLE
+  Total events in database:  36
+  Events with valid results: 36
+  Easing events (direction=+1): 30
+  Tightening events (direction=-1): 6
+
+------------------------------------------------------------------------
+AVERAGE CARs BY EVENT TYPE (easing events)
+------------------------------------------------------------------------
+
+  expansion  (n = 12)
+    CAR[-1,+1] = +2.100%  |  CAR[0,+5] = +1.836%  |  CAR[0,+10] = +1.401%
+
+  framework  (n = 3)
+    CAR[-1,+1] = +3.359%  |  CAR[0,+5] = +1.997%  |  CAR[0,+10] = -1.015%
+
+  initiation  (n = 13)
+    CAR[-1,+1] = +0.591%  |  CAR[0,+5] = +2.560%  |  CAR[0,+10] = +2.506%
+
+  restart  (n = 1)
+    CAR[-1,+1] = +1.040%  |  CAR[0,+5] = +0.628%  |  CAR[0,+10] = -0.210%
+
+  shock_speech  (n = 1)
+    CAR[-1,+1] = +0.894%  |  CAR[0,+5] = +1.059%  |  CAR[0,+10] = +3.540%
+
+------------------------------------------------------------------------------------------
+INDIVIDUAL EVENT RESULTS
+------------------------------------------------------------------------------------------
+ID    Date        Ctry  Program         Type            CAR[-1+1]  CAR[0+5]  CAR[0+10]  t[-1+1]
+------------------------------------------------------------------------------------------
+1     2008-11-25  US    QE1             initiation        +0.000%   +0.000%    +0.000%   +3.18***
+2     2009-03-18  US    QE1             expansion         +0.000%   +0.000%    +0.000%   +1.52
+3     2010-11-03  US    QE2             initiation        -0.000%   -0.000%    +0.000%   -1.49
+4     2012-09-13  US    QE3             initiation        +0.000%   +0.000%    +0.000%   +1.40
+5     2012-12-12  US    QE3             expansion         +0.000%   +0.000%    -0.000%   +0.01
+6     2013-05-22  US    taper_tantrum   tapering          -0.000%   -0.000%    -0.000%   -1.17
+7     2013-12-18  US    QE3_taper       tapering          -0.000%   -0.000%    -0.000%   -0.64
+8     2014-10-29  US    QE3_end         end               +0.000%   +0.000%    +0.000%   +0.00
+9     2020-03-15  US    COVID_QE        initiation        -0.000%   +0.000%    +0.000%   -1.84*
+10    2020-03-23  US    COVID_QE        expansion         +0.000%   +0.000%    +0.000%   +0.00
+11    2010-05-10  EA    SMP             initiation        -0.181%   +3.679%    +4.659%   -0.13
+12    2012-07-26  EA    OMT_signal      shock_speech      +0.894%   +1.059%    +3.540%   +0.46
+13    2012-09-06  EA    OMT             initiation        +1.359%   +0.399%    +1.614%   +0.87
+14    2015-01-22  EA    APP             initiation        +2.760%   +4.717%    +4.886%   +1.69*
+15    2016-03-10  EA    APP             expansion         -0.070%   +0.199%    +0.466%   -0.03
+16    2019-09-12  EA    APP_restart     restart           +1.040%   +0.628%    -0.210%   +0.73
+17    2020-03-18  EA    PEPP            initiation        -2.296%  +11.656%    +8.421%   -1.98**
+18    2020-06-04  EA    PEPP            expansion         +4.566%   -1.296%    -0.732%   +1.86*
+19    2013-04-04  JP    QQE             initiation        +6.488%   +7.984%    +5.442%   +3.17***
+20    2014-10-31  JP    QQE2            expansion         +7.965%   +6.769%    +7.927%   +3.78***
+21    2016-01-29  JP    NIRP            framework         +2.770%   -0.981%   -12.905%   +1.19
+22    2016-09-21  JP    YCC             framework         +1.647%   +1.970%    +3.694%   +0.55
+23    2022-12-20  JP    YCC_adjust      tapering          -4.382%   -3.689%    -6.098%   -1.95*
+24    2024-03-19  JP    NIRP_exit       end               +4.670%   +1.574%    -2.632%   +2.53**
+25    2009-03-05  GB    APF             initiation        +1.616%   -0.320%    +0.687%   +0.44
+26    2009-08-06  GB    APF             expansion         +1.122%   +1.970%    +2.385%   +0.31
+27    2011-10-06  GB    APF             expansion         +5.150%   +2.323%    +1.340%   +3.75***
+28    2016-08-04  GB    APF_Brexit      expansion         +1.206%   +3.287%    +2.570%   +0.73
+29    2020-03-19  GB    APF_COVID       expansion         +3.565%   +8.309%    +4.890%   +3.36***
+30    2015-02-12  SE    SEK_QE          initiation        +1.502%   +3.135%    +3.978%   +1.08
+31    2015-03-18  SE    SEK_QE          expansion         +0.646%   +1.140%    -0.587%   +0.45
+32    2016-02-11  SE    SEK_QE          expansion         +1.055%   -0.663%    -1.447%   +0.53
+33    2020-03-12  SE    SEK_COVID       initiation        -6.218%   +0.619%    +0.259%   -4.94***
+34    2009-03-12  CH    FX_QE           initiation        +2.658%   +1.412%    +2.633%   +0.80
+35    2011-09-06  CH    EUR_floor       framework         +5.660%   +5.003%    +6.165%   +5.83***
+36    2015-01-15  CH    EUR_floor_end   end              -16.084%  -18.354%   -12.067%  -15.35***
+
+* p<0.10  ** p<0.05  *** p<0.01 (two-tailed, sigma from estimation window)
+
+------------------------------------------------------------------------
+KNOWN LIMITATIONS
+------------------------------------------------------------------------
+1. US benchmark circularity: S&P 500 used as market model benchmark for US
+   equity. US CAR estimates are mechanically near zero. Use an ex-US index
+   (e.g. MSCI EAFE / ticker EFA) as the market benchmark for US regressions.
+
+2. Event clustering: Some events fall within the estimation windows of others
+   (e.g. ECB March and June 2020). Market model alphas/betas may be biased
+   for events with contaminated estimation windows.
+
+3. t-statistics use time-series sigma from the estimation window and do not
+   adjust for event-induced variance increases (Boehmer et al. 1991). The
+   simple t-test is conservative when QE announcements raise volatility.
+

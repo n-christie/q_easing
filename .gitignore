@@ -1,0 +1,37 @@
+# ── Data ────────────────────────────────────────────────────────────────────
+# Raw API downloads — large, regenerable by running collection scripts
+data/raw/
+
+# Derived/processed data — regenerable, often large binary files
+data/processed/
+
+# data/manual/ is NOT ignored — hand-curated CSVs and event database are versioned
+
+# ── R binaries ───────────────────────────────────────────────────────────────
+*.rds
+.RData
+.Rhistory
+
+# ── Output: logs ─────────────────────────────────────────────────────────────
+# Pipeline run logs (timestamped, many files)
+output/logs/pipeline_*.log
+
+# Result CSVs and report TXTs are NOT ignored — they are committed
+
+# ── Output: figures ───────────────────────────────────────────────────────────
+# PDF versions (large, regenerable; PNGs are kept for GitHub rendering)
+output/figures/*.pdf
+
+# ── Documents ────────────────────────────────────────────────────────────────
+# PDF version of the report (regenerable from DATA_REPORT.md)
+DATA_REPORT.pdf
+
+# ── OS / editor junk ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+
+# ── Claude Code & secrets ────────────────────────────────────────────────────
+.claude/
+.env
+.env.*

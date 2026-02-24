@@ -1,0 +1,124 @@
+############################################################
+QE EASING RESEARCH PROJECT -- DATA AVAILABILITY REPORT
+Generated: 2026-02-23 20:27:28
+Study period: 2005-01-01 to 2026-02-23
+Countries: US, EA, NO, SE, DK, JP, GB, CH
+############################################################
+
+============================================================
+SCRIPT 01: Macro Data (BIS CBTA, FRED, World Bank)
+============================================================
+  [bis_cbta]
+    attempted: US, EA, NO, SE, DK, JP, GB, CH
+    succeeded: EA, NO, SE, DK, JP, GB, CH
+    failed: US
+    note: Units: billion USD (BIS pre-converted)
+  [fred_cb_fallback]
+    attempted: US
+    succeeded: US
+  [fred_macro]
+    attempted: us_gdp_quarterly, us_cpi, us_10y, vix, fx_nok_usd, fx_sek_usd, fx_dkk_usd, fx_eur_usd, fx_jpy_usd, fx_gbp_usd, fx_chf_usd, yield_no, yield_se, yield_dk, yield_jp, yield_gb, yield_ch, cpi_no, cpi_se, cpi_dk, cpi_jp, cpi_gb, cpi_ch
+    succeeded: us_gdp_quarterly, us_cpi, us_10y, vix, fx_nok_usd, fx_sek_usd, fx_dkk_usd, fx_eur_usd, fx_jpy_usd, fx_gbp_usd, fx_chf_usd, yield_no, yield_se, yield_dk, yield_jp, yield_gb, yield_ch, cpi_no, cpi_se, cpi_dk, cpi_jp, cpi_gb, cpi_ch
+    failed: 
+  [wb_gdp]
+    attempted: US, EA, NO, SE, DK, JP, GB, CH
+    succeeded: CH, DK, EA, GB, JP, NO, SE
+    failed: US
+
+============================================================
+SCRIPT 02: Equity Valuation (Shiller, OECD PBR)
+============================================================
+  [shiller_cape_us]
+    status: ok
+    rows: 225
+    date_range: 2005-01-01 2023-09-01
+    cape_ok: TRUE
+    pe_ok: TRUE
+  [oecd_pbr]
+    status: fetch_failed
+    note: Non-US CAPE must come from data/manual/equity_valuation.csv
+
+============================================================
+SCRIPT 03: Controls (ECB, Money Supply, Chinn-Ito)
+============================================================
+  [ecb_macro]
+    attempted: ea_cpi, ea_yield_10y, ea_m3, ea_cb_assets
+    succeeded: ea_cpi, ea_yield_10y, ea_m3
+    failed: ea_cb_assets
+  [money_supply]
+    attempted: us_m2, jp_m2, gb_m4
+    succeeded: us_m2, jp_m2, gb_m4
+    failed: 
+  [chinnito]
+    status: ok
+    rows: 140
+    countries: CH, DK, GB, JP, NO, SE, US
+    missing: 
+
+============================================================
+PANEL VARIABLE COVERAGE (% non-NA obs)
+============================================================
+  year: 100% available (2032/2032 obs)
+  month: 100% available (2032/2032 obs)
+  quarter: 100% available (2032/2032 obs)
+  cb_gdp_ratio: 99% available (2011/2032 obs)
+  delta_cb_gdp: 94.2% available (1915/2032 obs)
+  cb_assets_local: 99% available (2012/2032 obs)
+  cape: 11.1% available (225/2032 obs)
+  pe_ratio: 10.9% available (222/2032 obs)
+  cpi_yoy: 86.2% available (1752/2032 obs)
+  yield_10y: 99.6% available (2024/2032 obs)
+  real_rate: 86.2% available (1752/2032 obs)
+  vix: 99.6% available (2024/2032 obs)
+  gdp_nominal_usd: 100% available (2032/2032 obs)
+  log_gdp: 100% available (2032/2032 obs)
+  gdp_yoy: 95.3% available (1936/2032 obs)
+  excess_money_growth: 11.8% available (240/2032 obs)
+  kaopen: 87.5% available (1778/2032 obs)
+  gdp_nominal_usd_wb: 87.5% available (1778/2032 obs)
+  cpi_yoy_ea: 99.2% available (2016/2032 obs)
+  yield_10y_ea: 99.6% available (2024/2032 obs)
+  m3_ea: 99.2% available (2016/2032 obs)
+  us_cpi: 99.2% available (2016/2032 obs)
+  us_10y: 99.6% available (2024/2032 obs)
+  fx_nok_usd: 99.6% available (2024/2032 obs)
+  fx_sek_usd: 99.6% available (2024/2032 obs)
+  fx_dkk_usd: 99.6% available (2024/2032 obs)
+  fx_eur_usd: 99.6% available (2024/2032 obs)
+  fx_jpy_usd: 99.6% available (2024/2032 obs)
+  fx_gbp_usd: 99.6% available (2024/2032 obs)
+  fx_chf_usd: 99.6% available (2024/2032 obs)
+  yield_no: 99.6% available (2024/2032 obs)
+  yield_se: 99.6% available (2024/2032 obs)
+  yield_dk: 99.6% available (2024/2032 obs)
+  yield_jp: 99.6% available (2024/2032 obs)
+  yield_gb: 99.6% available (2024/2032 obs)
+  yield_ch: 99.6% available (2024/2032 obs)
+  cpi_no: 90.9% available (1848/2032 obs)
+  cpi_se: 90.9% available (1848/2032 obs)
+  cpi_dk: 90.9% available (1848/2032 obs)
+  cpi_jp: 78% available (1584/2032 obs)
+  cpi_gb: 90.6% available (1840/2032 obs)
+  cpi_ch: 90.9% available (1848/2032 obs)
+  money_m2_US: 99.2% available (2016/2032 obs)
+  money_m2_JP: 57.5% available (1168/2032 obs)
+  money_m4_broad_GB: 89.4% available (1816/2032 obs)
+  cpi_yoy_us: 94.5% available (1920/2032 obs)
+  money_yoy: 11.8% available (240/2032 obs)
+
+============================================================
+MANUAL DATA FILES
+============================================================
+  cb_assets_NO.csv: PRESENT
+  cb_assets_SE.csv: PRESENT
+  cb_assets_DK.csv: PRESENT
+  equity_valuation.csv: PRESENT
+
+============================================================
+ACTION ITEMS
+============================================================
+  See data/manual/README.md for column specifications and download links.
+
+############################################################
+END OF REPORT
+############################################################

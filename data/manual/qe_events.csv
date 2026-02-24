@@ -1,0 +1,37 @@
+event_id,date,country,central_bank,event_type,direction,program_name,description,size_bn,size_unit,surprise,tier
+1,2008-11-25,US,Fed,initiation,1,QE1,"Fed announces $600B purchase of agency MBS and GSE debt",600,bn_usd,high,1
+2,2009-03-18,US,Fed,expansion,1,QE1,"FOMC expands QE1 to $1.75T total; adds $300B Treasury purchases",1750,bn_usd,high,1
+3,2010-11-03,US,Fed,initiation,1,QE2,"FOMC announces $600B Treasury purchase programme",600,bn_usd,medium,1
+4,2012-09-13,US,Fed,initiation,1,QE3,"Open-ended MBS purchases at $40B/month ('QE infinity')",40,bn_usd_monthly,medium,1
+5,2012-12-12,US,Fed,expansion,1,QE3,"QE3 expanded; adds $45B/month in Treasuries ($85B/month total)",85,bn_usd_monthly,low,2
+6,2013-05-22,US,Fed,tapering,-1,taper_tantrum,"Bernanke congressional testimony signals possibility of tapering",NA,NA,high,1
+7,2013-12-18,US,Fed,tapering,-1,QE3_taper,"FOMC announces $10B/month tapering of asset purchases",NA,NA,medium,1
+8,2014-10-29,US,Fed,end,-1,QE3_end,"FOMC ends asset purchase programme; final taper",NA,NA,low,2
+9,2020-03-15,US,Fed,initiation,1,COVID_QE,"Emergency $700B purchase programme (MBS + Treasuries)",700,bn_usd,high,1
+10,2020-03-23,US,Fed,expansion,1,COVID_QE,"Fed announces unlimited asset purchases (QE infinity II)",NA,NA,high,1
+11,2010-05-10,EA,ECB,initiation,1,SMP,"Emergency Securities Markets Programme for peripheral sovereign bonds",NA,NA,high,1
+12,2012-07-26,EA,ECB,shock_speech,1,OMT_signal,"Draghi London speech: will do 'whatever it takes' to preserve euro",NA,NA,high,1
+13,2012-09-06,EA,ECB,initiation,1,OMT,"ECB announces unlimited conditional sovereign bond purchases (OMT)",NA,NA,medium,1
+14,2015-01-22,EA,ECB,initiation,1,APP,"ECB launches €60B/month expanded asset purchase programme",60,bn_eur_monthly,high,1
+15,2016-03-10,EA,ECB,expansion,1,APP,"APP expanded to €80B/month; adds corporate bond purchases (CSPP)",80,bn_eur_monthly,high,1
+16,2019-09-12,EA,ECB,restart,1,APP_restart,"APP restarted at €20B/month open-ended; deposit rate cut to -0.5%",20,bn_eur_monthly,medium,2
+17,2020-03-18,EA,ECB,initiation,1,PEPP,"ECB announces €750B Pandemic Emergency Purchase Programme",750,bn_eur,high,1
+18,2020-06-04,EA,ECB,expansion,1,PEPP,"PEPP envelope expanded by €600B to €1350B total",1350,bn_eur,medium,2
+19,2013-04-04,JP,BoJ,initiation,1,QQE,"BoJ launches Quantitative and Qualitative Easing: ¥60-70T/year asset purchases",70,tn_jpy_annual,high,1
+20,2014-10-31,JP,BoJ,expansion,1,QQE2,"BoJ doubles QQE pace to ¥80T/year ('Halloween surprise')",80,tn_jpy_annual,high,1
+21,2016-01-29,JP,BoJ,framework,1,NIRP,"BoJ adopts negative interest rates (-0.1%) alongside QQE",NA,NA,high,1
+22,2016-09-21,JP,BoJ,framework,1,YCC,"BoJ introduces yield curve control; 10Y JGB yield target ~0%",NA,NA,high,1
+23,2022-12-20,JP,BoJ,tapering,-1,YCC_adjust,"BoJ widens YCC band to ±50bp (surprise hawkish shock)",NA,NA,high,1
+24,2024-03-19,JP,BoJ,end,-1,NIRP_exit,"BoJ exits negative rates; ends yield curve control framework",NA,NA,medium,1
+25,2009-03-05,GB,BoE,initiation,1,APF,"MPC authorises £75B Asset Purchase Facility; Bank Rate cut to 0.5%",75,bn_gbp,high,1
+26,2009-08-06,GB,BoE,expansion,1,APF,"APF expanded to £175B",175,bn_gbp,medium,2
+27,2011-10-06,GB,BoE,expansion,1,APF,"APF expanded by £75B to £275B amid euro area crisis",275,bn_gbp,medium,2
+28,2016-08-04,GB,BoE,expansion,1,APF_Brexit,"Post-Brexit stimulus: £60B gilts + £10B corporate bonds; rate cut to 0.25%",70,bn_gbp,high,1
+29,2020-03-19,GB,BoE,expansion,1,APF_COVID,"MPC adds £200B to APF in emergency COVID response",200,bn_gbp,high,1
+30,2015-02-12,SE,Riksbank,initiation,1,SEK_QE,"Riksbank cuts repo rate to -0.1% and announces SEK 10B government bond purchases",10,bn_sek,high,1
+31,2015-03-18,SE,Riksbank,expansion,1,SEK_QE,"Riksbank expands bond purchases by additional SEK 30B",30,bn_sek,medium,2
+32,2016-02-11,SE,Riksbank,expansion,1,SEK_QE,"Riksbank deepens NIRP to -0.5% and expands QE envelope further",NA,NA,medium,2
+33,2020-03-12,SE,Riksbank,initiation,1,SEK_COVID,"Riksbank announces SEK 300B asset purchase framework in COVID response",300,bn_sek,high,1
+34,2009-03-12,CH,SNB,initiation,1,FX_QE,"SNB announces CHF foreign exchange purchases to prevent appreciation",NA,NA,high,1
+35,2011-09-06,CH,SNB,framework,1,EUR_floor,"SNB sets minimum EUR/CHF exchange rate of 1.20 (open-ended commitment)",NA,NA,high,1
+36,2015-01-15,CH,SNB,end,-1,EUR_floor_end,"SNB unexpectedly removes EUR/CHF floor; deepens negative rates to -0.75%",NA,NA,high,1
