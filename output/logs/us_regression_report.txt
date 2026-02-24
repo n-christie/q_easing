@@ -1,0 +1,55 @@
+========================================================================
+US TIME SERIES REGRESSIONS — QE and Equity Valuations
+Generated: 2026-02-24 09:17:15
+========================================================================
+
+DATA
+  Sample: 2006-01 to 2023-09 (213 months)
+  Dependent variable: US CAPE (Shiller cyclically adjusted P/E)
+  Key treatment: ΔCB/GDP = year-on-year change in Fed assets as % of GDP (pp)
+
+OLS RESULTS (Newey-West HAC, 12-month lag bandwidth)
+
+  Spec 1 — Level CB/GDP (dep: CAPE):
+    beta = 0.95 CAPE pts per 1pp CB/GDP | SE=0.43 | p<0.05 **
+
+  Spec 2 — Δ CB/GDP (dep: CAPE):
+    beta = 1.29 CAPE pts per 1pp ΔCB/GDP | SE=0.89 | p≥0.10 (n.s.)
+
+  Spec 3 — Level CB/GDP + time trend (dep: CAPE):
+    beta = -0.44 CAPE pts per 1pp CB/GDP | SE=0.40 | p≥0.10 (n.s.)
+
+  Spec 4 — Δ CB/GDP (dep: ΔCAPE monthly):
+    beta = 0.31 CAPE pts per 1pp ΔCB/GDP | SE=0.09 | p<0.01 ***
+
+LOCAL PROJECTION (Jordà 2005)
+
+  Peak beta_h = 2.33 CAPE pts at h=13 months
+  Horizons with 90%-CI excluding zero: 11, 12, 13, 14, 15, 17, 18
+
+INTERPRETATION
+
+  Spec 1 shows a large positive association between the Fed balance sheet
+  and US CAPE — but this is almost certainly driven by a common upward trend
+  in both series (balance sheet expansion and rising valuations post-GFC).
+
+  Spec 3 (level + trend) substantially reduces the coefficient by absorbing
+  the secular trend, isolating within-period variation.
+
+  Spec 2 (ΔCB/GDP) is less affected by trends and represents the short-run
+  association between the pace of balance sheet expansion and CAPE.
+
+  Spec 4 (ΔCAPE) is the most conservative: it asks whether CAPE rises in
+  the same month the balance sheet expands faster-than-usual.
+
+  The local projection traces the dynamic path: a 1pp rise in ΔCB/GDP is
+  associated with a peak CAPE response of 2.33 points at h=13 months,
+  after which the effect fades. Confidence intervals are wide, reflecting
+  the limited number of distinct QE episodes in the 2006-2023 sample.
+
+CAUTION
+  These are time series associations for a single country. They cannot
+  distinguish CB balance sheet effects from confounders (low rates, strong
+  growth) that drove both QE and rising valuations. Causal identification
+  requires the full cross-country panel or an IV strategy.
+========================================================================

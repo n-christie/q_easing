@@ -89,7 +89,8 @@ R/
 ├── 07_collect_event_data.R  Daily equity index prices from Stooq (event study input)
 ├── 08_event_study.R         Market model event study: CARs, cross-country spillovers, figures
 ├── 09_collect_yield_data.R  Daily 10Y government bond yields from 4 central bank data portals
-└── 10_yield_event_study.R   Mean-adjusted bond yield event study: CAYCs, yield paths, figures
+├── 10_yield_event_study.R   Mean-adjusted bond yield event study: CAYCs, yield paths, figures
+└── 11_regressions_us.R      US-only OLS (4 specs) and local projection IRF
 ```
 
 Key design choices:
@@ -510,7 +511,74 @@ The same estimation and event windows as the equity study are used: estimation w
 
 ---
 
-## 10. Outstanding Data Gap
+## 10. US Time Series Regressions (Script 11)
+
+### 10.1 Overview
+
+Script `11_regressions_us.R` runs the first formal regressions in the project, using the US-only subsample (213 months, January 2006 – September 2023). For the US, all required variables are available: CAPE (Shiller), CB/GDP ratio, real rate, CPI, GDP growth, and VIX.
+
+These are **time series regressions for a single country** — they measure correlations, not causal effects. The results motivate the full cross-country panel strategy but should be interpreted cautiously. All standard errors use the **Newey-West HAC correction** with a 12-month lag bandwidth to account for serial correlation in monthly time series.
+
+### 10.2 OLS Specifications
+
+Four specifications test how sensitive the CB/GDP–CAPE relationship is to detrending and choice of dependent variable:
+
+| Spec | Dependent var | Key regressor | Note |
+|------|--------------|---------------|------|
+| (1) Level CB/GDP | CAPE | CB/GDP ratio | Raw association — likely trend-confounded |
+| (2) Δ CB/GDP | CAPE | ΔCB/GDP (YoY pp) | Flow measure, less trended |
+| (3) Level + trend | CAPE | CB/GDP ratio | Adds linear time trend to partial detrend |
+| (4) Δ CB/GDP | ΔCAPE (monthly) | ΔCB/GDP (YoY pp) | Most stationary; short-run dynamics |
+
+All specifications include real 10Y interest rate, CPI inflation (YoY), real GDP growth (YoY), and VIX as controls.
+
+**Results:**
+
+| Spec | CB/GDP coefficient | SE | Significance |
+|------|-------------------|-----|-------------|
+| (1) Level CB/GDP → CAPE | +0.95 CAPE pts per 1pp | 0.43 | ** |
+| (2) Δ CB/GDP → CAPE | +1.29 CAPE pts per 1pp | 0.89 | n.s. |
+| (3) Level + trend → CAPE | −0.44 CAPE pts per 1pp | 0.40 | n.s. |
+| (4) Δ CB/GDP → Δ CAPE | +0.31 CAPE pts per 1pp | 0.09 | *** |
+
+**Interpretation:**
+
+- **Spec (1)** shows the raw positive correlation everyone expects: a 1 percentage-point higher CB/GDP ratio is associated with a CAPE 0.95 points higher. But this is almost certainly driven by a shared upward trend — both the Fed's balance sheet and equity valuations rose together from 2009 to 2021 for reasons that include but go beyond QE itself.
+
+- **Spec (3)** is the clearest evidence of this trend problem: once a linear time trend is added, the coefficient *flips sign* (−0.44) and becomes insignificant. The common trend was doing most of the work in Spec (1).
+
+- **Spec (4) is the headline result** and the most defensible statistically. It asks: *in months when the Fed expanded its balance sheet faster than usual, did CAPE rise more than usual?* The answer is yes — and it is statistically significant at the 1% level (β = +0.31, SE = 0.09, p < 0.01). A 1 percentage-point faster annual pace of balance sheet expansion is associated with CAPE rising by roughly one-third of a point in the same month.
+
+![Figure 7 — OLS coefficient estimates across four specifications](output/figures/us_ols_coefplot.png)
+
+### 10.3 Local Projection (Jordà 2005)
+
+The local projection traces the *dynamic* response of CAPE over time following a 1pp increase in ΔCB/GDP. For each horizon h = 0 to 24 months, a separate regression is run:
+
+$$CAPE_{t+h} - CAPE_{t-1} = \alpha + \beta_h \Delta cb\_gdp_t + \text{lags} + \text{controls} + \varepsilon_{t,h}$$
+
+The coefficient $\beta_h$ traces out the impulse response function (IRF) — how much CAPE cumulatively moves above its pre-shock level, h months after the balance sheet expansion.
+
+**Key results:**
+
+- The effect is **near zero on impact** (h = 0 to 10), consistent with CAPE being slow to respond — valuations don't jump immediately when the Fed announces purchases.
+- The effect **builds over roughly a year**, peaking at **+2.33 CAPE points at h = 13 months**.
+- The 90% confidence interval excludes zero from approximately **h = 11 to h = 18 months**, giving a window of statistical significance in the medium term.
+- The effect then **fades back toward zero** beyond h = 18 months, consistent with a valuation response that eventually mean-reverts as fundamentals reassert themselves.
+
+This shape — slow build, medium-term peak, gradual fade — is consistent with the **portfolio balance channel**: when the Fed buys bonds, investors gradually shift into riskier assets (equities), bidding up valuations, but the effect is not permanent as earnings growth and real rates eventually reassert their gravity on CAPE.
+
+![Figure 8 — Local projection impulse response: US CAPE after a 1pp ΔCB/GDP shock](output/figures/us_lp_irf.png)
+
+### 10.4 Caveats
+
+1. **Single-country inference:** With only one country and one or two major QE episodes in the sample, the LP confidence intervals are wide. The peak estimate of +2.33 CAPE points is economically plausible but statistically imprecise.
+2. **Confounding:** Even Spec (4) and the LP cannot cleanly isolate QE from confounders. Fed balance sheet expansions happened during the GFC recovery (2009–2014) and COVID (2020–2021) — both periods when equity valuations were also driven up by earnings rebounds and low real rates. The cross-country panel with time fixed effects (which absorbs these global shocks) is needed for cleaner identification.
+3. **US circularity in reverse:** The CAPE denominator uses 10-year average real earnings — a slow-moving series. The numerator (price) is the variable that jumps on QE announcements. This means CAPE is partly capturing price-level effects, which is exactly what we want, but makes it difficult to distinguish "QE raised valuations" from "QE raised prices while earnings were temporarily depressed."
+
+---
+
+## 12. Outstanding Data Gap
 
 ### Non-US Historical CAPE (blocks main cross-country regression)
 
@@ -536,7 +604,7 @@ date,country,cape,pe_trailing,pe_forward
 
 ---
 
-## 11. Next Steps
+## 13. Next Steps
 
 ### 11.1 Immediate Data Actions
 
@@ -618,10 +686,8 @@ Both approaches are demanding and require careful institutional knowledge of eac
 ### 11.3 Suggested Timeline
 
 ```
-Phase 0 (complete):       Ran 07_collect_event_data.R → daily equity prices downloaded
-                          Ran 08_event_study.R → equity event study results produced
-                          Built 09_collect_yield_data.R → daily bond yield data collected
-                          Built 10_yield_event_study.R → bond yield event study ready to run
+Phase 0 (complete):       Ran 07–10 → equity and bond yield event studies complete
+                          Ran 11 → US OLS and local projection results produced
 Phase 1 (→ 2 weeks):      Collect non-US CAPE → full panel ready
 Phase 2 (weeks 3–4):      Run Steps 1–3 (pooled OLS, TWFE, local projections) → first results
 Phase 3 (weeks 5–6):      Heterogeneity analysis (Step 4), robustness (Step 6)
@@ -631,7 +697,7 @@ Phase 5:                  Write-up
 
 ---
 
-## 12. Data Source Citations
+## 14. Data Source Citations
 
 | Source | Citation |
 |--------|---------|
