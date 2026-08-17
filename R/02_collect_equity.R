@@ -13,7 +13,9 @@ suppressPackageStartupMessages({
 # =============================================================================
 # Section 1: Shiller US CAPE (primary source for US equity valuation)
 # =============================================================================
-# Data from: http://www.econ.yale.edu/~shiller/data/ie_data.xls
+# Data from: https://shillerdata.com/ (ie_data.xls)
+# The legacy econ.yale.edu/~shiller URL now serves a stale mirror frozen at
+# 2023-09; Shiller's data moved to shillerdata.com — confirmed 2026-08-17.
 # Sheet "Data", skip 7 rows, date column is "YYYY.MM" format.
 # CAPE = cyclically adjusted P/E (10-year real earnings avg).
 # =============================================================================
@@ -24,7 +26,7 @@ shiller_destfile <- file.path(DIR_RAW_SHILLER, "ie_data.xls")
 
 shiller_download_ok <- safe_fetch(
   download.file(
-    url     = "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
+    url     = "https://img1.wsimg.com/blobby/go/e5e77e0b-59d1-44d9-ab25-4763ac982e53/downloads/e27e58c1-8ae0-488c-a976-a298708c7175/ie_data.xls",
     destfile = shiller_destfile,
     mode    = "wb",
     quiet   = TRUE

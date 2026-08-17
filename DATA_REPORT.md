@@ -1,8 +1,8 @@
 # QE and Equity Valuations: Data Collection Report
 
-**Date:** 2026-02-23
-**Pipeline version:** Scripts 01–10 complete (equity event study done; yield event study data collection in progress)
-**Status:** Panel ready for regression — non-US historical CAPE series outstanding
+**Date:** 2026-08-17 (data refresh; original analysis 2026-02-23)
+**Pipeline version:** Scripts 01–11 complete
+**Status:** Panel ready for regression — non-US historical CAPE series still outstanding (unchanged since Feb 2026)
 
 ---
 
@@ -152,8 +152,8 @@ All series are monthly from FRED or ECB. The OECD yield and CPI series (added in
 
 The final panel (`panel_monthly.rds`, `panel_monthly.csv`) covers:
 
-- **Dimensions:** 2,032 rows (8 countries × 254 months), 52 columns
-- **Period:** 2005-01-01 to 2026-02-01
+- **Dimensions:** 2,080 rows (8 countries × 260 months), 52 columns
+- **Period:** 2005-01-01 to 2026-08-01
 
 ### Key Derived Variables
 
@@ -172,42 +172,44 @@ The final panel (`panel_monthly.rds`, `panel_monthly.csv`) covers:
 
 ## 6. Data Availability
 
-The heatmap below summarises the percentage of non-missing observations for key variables across all countries and the full study period. The most recent pipeline run added 12 new FRED series (6 OECD yields + 6 OECD CPI indices), substantially improving coverage.
+The heatmap below summarises the percentage of non-missing observations for key variables across all countries and the full study period. The pipeline was refreshed on 2026-08-17, extending the panel from Feb 2026 to Aug 2026 (six additional months of BIS/FRED/ECB/World Bank data) and fixing a stale-URL bug in the Shiller CAPE fetch (Section 4.2) that had silently frozen the US CAPE series at 2023-09 since the project began — US CAPE now runs current to 2026-08.
 
 ![Data Availability Heatmap](output/figures/availability_heatmap.png)
 
 **How to read this figure:** Each row is a variable (e.g. CB/GDP ratio, CAPE), each column is a country. The colour shade indicates what fraction of monthly observations are non-missing: dark = complete coverage, white/light = mostly missing. The CAPE rows being almost entirely white for non-US countries reflect the key data gap described in Section 9.
 
-### Summary by Variable (updated 2026-02-23)
+### Summary by Variable (updated 2026-08-17)
 
-| Variable | Overall Coverage | Change from prior run | Notes |
+| Variable | Overall Coverage | Change from prior run (2026-02-23) | Notes |
 |----------|-----------------|----------------------|-------|
-| CB/GDP ratio | **99%** | — | Solid across all 8 countries |
-| Delta CB/GDP (YoY) | **94%** | — | 12-month lag reduces early coverage |
+| CB/GDP ratio | **98.5%** | ↓ from 99% (fractional — recent months not yet fully populated by BIS) | Solid across all 8 countries |
+| Delta CB/GDP (YoY) | **93.9%** | ~flat (was 94%) | 12-month lag reduces early coverage |
 | GDP (nominal USD) | **100%** | — | Complete |
 | VIX | **99.6%** | — | Global series |
-| 10Y yield | **99.6%** | ↑ from 25% | Now all 8 countries via OECD/FRED |
-| Real rate | **86%** | ↑ from 24% | Derived from yield − CPI; gap = early CPI coverage |
-| CPI YoY | **86%** | ↑ from 95% overall (now per-country) | OECD indices; Japan 70% (series starts 2007) |
+| 10Y yield | **99.3%** | ~flat (was 99.6%) | All 8 countries via OECD/FRED |
+| Real rate | **84.5%** | ↓ from 86% (denominator grew faster than early-period CPI backfill) | Derived from yield − CPI; gap = early CPI coverage |
+| CPI YoY | **84.5%** | ↓ from 86% | OECD indices; Japan 68.5% (series starts 2007) |
 | Chinn-Ito (kaopen) | **87.5%** | — | EA not in index |
-| CAPE | **11%** | — | US only (Shiller 2005–2023) |
-| P/E ratio | **11%** | — | US only |
-| Excess money growth | **12%** | — | US, JP, GB only |
+| CAPE | **12.5%** | ↑ from 11% | US only, but now current to 2026-08 (was frozen at 2023-09 — see Section 4.2) |
+| P/E ratio | **12.3%** | ↑ from 11% | US only |
+| Excess money growth | **11.8%** | ~flat (was 12%) | US, JP, GB only |
 
-### Country-Level Coverage of Key Variables (updated)
+Most small declines above are a mechanical consequence of extending the panel by six months into a period where some cross-country series (CPI, real rate) lag their release by 1–3 months rather than a data quality regression.
+
+### Country-Level Coverage of Key Variables (updated 2026-08-17)
 
 | Country | CB/GDP | CAPE | CPI YoY | 10Y yield | Real rate | Kaopen |
 |---------|--------|------|---------|-----------|-----------|--------|
-| US | 100% | **89%** | 94% | 100% | 94% | 100% |
-| EA | 98% | 0% | 99% | 100% | 99% | 0% |
-| NO | 99% | 0% | **85%** | **100%** | **85%** | 100% |
-| SE | 100% | 0% | **86%** | **100%** | **86%** | 100% |
-| DK | 100% | 0% | **86%** | **100%** | **86%** | 100% |
-| JP | 98% | 0% | **70%** | **100%** | **70%** | 100% |
-| GB | 98% | 0% | **83%** | **100%** | **83%** | 100% |
-| CH | 98% | 0% | **86%** | **100%** | **86%** | 100% |
+| US | 99.6% | **100%** | 94.6% | 99.6% | 94.6% | 100% |
+| EA | 98.5% | 0% | 96.9% | 99.6% | 96.9% | 0% |
+| NO | 98.1% | 0% | 82.7% | 99.2% | 82.7% | 100% |
+| SE | 98.1% | 0% | 84.2% | 99.2% | 84.2% | 100% |
+| DK | 98.5% | 0% | 83.8% | 99.2% | 83.8% | 100% |
+| JP | 98.5% | 0% | 68.5% | 99.2% | 68.5% | 100% |
+| GB | 98.5% | 0% | 81.2% | 99.2% | 81.2% | 100% |
+| CH | 98.5% | 0% | 84.2% | 99.2% | 84.2% | 100% |
 
-Bold entries changed from the previous run. The 10Y yield column went from 0% to 100% for six countries. Japan's CPI coverage is lower because the OECD series (`CPALTT01JPM657N`) begins in 2007; the 12-month lag for YoY computation reduces this further to ~70%.
+Bold entry is the one substantive change from the previous run: US CAPE coverage jumped from 89% to **100%** once the Shiller stale-URL bug (Section 4.2) was fixed — the US CAPE series now covers every month of the panel rather than stopping in 2023-09. All non-US CAPE cells remain 0%; this is the unresolved gap discussed in Section 12. Other columns shifted by low single-digit points from extending the panel six months, consistent with the release-lag explanation above.
 
 ---
 
@@ -515,7 +517,7 @@ The same estimation and event windows as the equity study are used: estimation w
 
 ### 10.1 Overview
 
-Script `11_regressions_us.R` runs the first formal regressions in the project, using the US-only subsample (213 months, January 2006 – September 2023). For the US, all required variables are available: CAPE (Shiller), CB/GDP ratio, real rate, CPI, GDP growth, and VIX.
+Script `11_regressions_us.R` runs the first formal regressions in the project, using the US-only subsample (246 months, January 2006 – July 2026; refreshed 2026-08-17 after fixing a stale-URL bug in the Shiller CAPE fetch that had previously frozen the series at 2023-09). For the US, all required variables are available: CAPE (Shiller), CB/GDP ratio, real rate, CPI, GDP growth, and VIX.
 
 These are **time series regressions for a single country** — they measure correlations, not causal effects. The results motivate the full cross-country panel strategy but should be interpreted cautiously. All standard errors use the **Newey-West HAC correction** with a 12-month lag bandwidth to account for serial correlation in monthly time series.
 
@@ -541,34 +543,34 @@ All specifications include real 10Y interest rate, CPI inflation (YoY), real GDP
                                           CAPE                              CAPE
                       (1) Level       (2) D.CB/GDP      (3) +Trend       (4) D.CAPE
 --------------------------------------------------------------------------------------
-CB/GDP ratio (%)       0.948**                            -0.437
-                       (0.431)                           (0.404)
+CB/GDP ratio (%)       1.719***                           -0.844
+                       (0.502)                           (0.534)
 
-D.CB/GDP (YoY pp)                        1.286                            0.311***
-                                        (0.888)                           (0.093)
+D.CB/GDP (YoY pp)                        0.445                            0.273**
+                                        (1.280)                           (0.107)
 
-Real 10Y rate (%)       -0.420          -1.398**          -0.159           -0.018
-                       (0.928)          (0.624)          (0.927)          (0.055)
+Real 10Y rate (%)       1.676            0.033            -0.073           0.042
+                       (1.045)          (0.943)          (0.694)          (0.071)
 
-CPI infl. YoY (%)       0.003            -0.788           0.061            -0.021
-                       (0.824)          (0.513)          (0.867)          (0.083)
+CPI infl. YoY (%)       1.612            0.318            0.079            0.043
+                       (0.996)          (0.791)          (0.726)          (0.096)
 
-GDP growth YoY (%)      0.390*          0.707***          0.371            -0.050
-                       (0.222)          (0.191)          (0.257)          (0.045)
+GDP growth YoY (%)      0.475*          0.812**           0.378            -0.056
+                       (0.266)          (0.327)          (0.272)          (0.049)
 
-VIX                   -0.197***        -0.240***        -0.159***        -0.072***
-                       (0.035)          (0.047)          (0.030)          (0.014)
+VIX                   -0.175***        -0.192***        -0.145***        -0.075***
+                       (0.044)          (0.072)          (0.028)          (0.014)
 
-Trend (yrs)                                              0.712***
-                                                         (0.168)
+Trend (yrs)                                              0.907***
+                                                         (0.108)
 
-Constant              23.694***        29.770***        22.880***         1.608***
-                       (4.496)          (2.711)          (4.369)          (0.252)
+Constant              15.118***        26.745***        22.719***         1.591***
+                       (5.106)          (3.407)          (3.562)          (0.280)
 
 --------------------------------------------------------------------------------------
-Observations             213              213              213              213
-R²                      0.620            0.591            0.717            0.379
-Adjusted R²             0.611            0.581            0.709            0.364
+Observations             246              246              246              246
+R²                      0.548            0.349            0.796            0.331
+Adjusted R²             0.538            0.335            0.791            0.317
 ======================================================================================
 Note: NW-HAC SEs (lag=12) in parentheses. * p<0.1  ** p<0.05  *** p<0.01
 ```
@@ -577,11 +579,11 @@ Full HTML version: [`output/logs/us_ols_table.html`](output/logs/us_ols_table.ht
 
 **Interpretation:**
 
-- **Spec (1)** shows the raw positive correlation everyone expects: a 1 percentage-point higher CB/GDP ratio is associated with a CAPE 0.95 points higher. But this is almost certainly driven by a shared upward trend — both the Fed's balance sheet and equity valuations rose together from 2009 to 2021 for reasons that include but go beyond QE itself.
+- **Spec (1)** shows the raw positive correlation everyone expects: a 1 percentage-point higher CB/GDP ratio is associated with a CAPE 1.72 points higher (up from 0.95 in the previous vintage of this analysis, and now significant at the 1% level rather than 5%). But this is almost certainly driven by a shared upward trend — both the Fed's balance sheet and equity valuations rose together from 2009 to 2021 for reasons that include but go beyond QE itself.
 
-- **Spec (3)** is the clearest evidence of this trend problem: once a linear time trend is added, the coefficient *flips sign* (−0.44) and becomes insignificant. The common trend was doing most of the work in Spec (1).
+- **Spec (3)** is the clearest evidence of this trend problem: once a linear time trend is added, the coefficient *flips sign* (−0.84) and becomes insignificant. The common trend was doing most of the work in Spec (1).
 
-- **Spec (4) is the headline result** and the most defensible statistically. It asks: *in months when the Fed expanded its balance sheet faster than usual, did CAPE rise more than usual?* The answer is yes — and it is statistically significant at the 1% level (β = +0.31, SE = 0.09, p < 0.01). A 1 percentage-point faster annual pace of balance sheet expansion is associated with CAPE rising by roughly one-third of a point in the same month.
+- **Spec (4) is the headline result** and the most defensible statistically. It asks: *in months when the Fed expanded its balance sheet faster than usual, did CAPE rise more than usual?* The answer is yes — and it remains statistically significant, though more weakly than in the previous vintage (β = +0.27, SE = 0.11, p < 0.05, down from p < 0.01 on the shorter sample). A 1 percentage-point faster annual pace of balance sheet expansion is associated with CAPE rising by roughly a quarter of a point in the same month.
 
 ![Figure 7 — OLS coefficient estimates across four specifications](output/figures/us_ols_coefplot.png)
 
@@ -593,22 +595,22 @@ $$CAPE_{t+h} - CAPE_{t-1} = \alpha + \beta_h \Delta cb\_gdp_t + \text{lags} + \t
 
 The coefficient $\beta_h$ traces out the impulse response function (IRF) — how much CAPE cumulatively moves above its pre-shock level, h months after the balance sheet expansion.
 
-**Key results:**
+**Key results (refreshed 2026-08-17 on the 246-month sample, Jan 2006 – Jul 2026):**
 
-- The effect is **near zero on impact** (h = 0 to 10), consistent with CAPE being slow to respond — valuations don't jump immediately when the Fed announces purchases.
-- The effect **builds over roughly a year**, peaking at **+2.33 CAPE points at h = 13 months**.
-- The 90% confidence interval excludes zero from approximately **h = 11 to h = 18 months**, giving a window of statistical significance in the medium term.
-- The effect then **fades back toward zero** beyond h = 18 months, consistent with a valuation response that eventually mean-reverts as fundamentals reassert themselves.
+- The effect is **statistically indistinguishable from zero across the entire h = 0 to 18 month range**. The point estimate does still rise gradually, peaking at **+0.61 CAPE points at h = 13 months** — the same horizon as before, but a much smaller and no longer significant magnitude (previously +2.33, with a 90% CI excluding zero from h = 11–18).
+- From roughly **h = 20 months onward, the point estimate turns negative and grows in magnitude**, becoming statistically significant (90% CI excludes zero) from **h = 21 to h = 24 months**, reaching **−3.60 CAPE points at h = 24** (90% CI [−6.41, −0.80]).
+- This is a **qualitative reversal** from the previous vintage of this report (data through 2023-09), which found a significant *positive*, fading medium-term response. The extended sample now includes the full 2022–24 tightening cycle and the 2024–26 period, in which the Fed's balance sheet continued shrinking while CAPE rose sharply to ~41 — a combination that mechanically pulls long-horizon local-projection coefficients negative.
 
-This shape — slow build, medium-term peak, gradual fade — is consistent with the **portfolio balance channel**: when the Fed buys bonds, investors gradually shift into riskier assets (equities), bidding up valuations, but the effect is not permanent as earnings growth and real rates eventually reassert their gravity on CAPE.
+**Interpretation:** the previously reported "slow build, medium-term peak, gradual fade" shape consistent with a portfolio-balance channel does **not hold up** once ~2.5 more years of data are included. The near-term relationship is now null, and the significant result that remains (h = 21–24) has the *opposite* sign from what the portfolio-balance channel predicts. This is most plausibly a sample-composition effect — the 2020–21 QE surge is now followed, ~20–24 months later inside the LP window, by the 2022 valuation collapse that accompanied rate hikes — rather than evidence that QE causally *depresses* valuations at long horizons. The instability of this single-country estimate across sample vintages is itself a useful finding: it reinforces the caveats in §10.4 and strengthens the case that the cross-country panel (§13.2), not this US-only time series, should be the primary basis for causal claims.
 
 ![Figure 8 — Local projection impulse response: US CAPE after a 1pp ΔCB/GDP shock](output/figures/us_lp_irf.png)
 
 ### 10.4 Caveats
 
-1. **Single-country inference:** With only one country and one or two major QE episodes in the sample, the LP confidence intervals are wide. The peak estimate of +2.33 CAPE points is economically plausible but statistically imprecise.
-2. **Confounding:** Even Spec (4) and the LP cannot cleanly isolate QE from confounders. Fed balance sheet expansions happened during the GFC recovery (2009–2014) and COVID (2020–2021) — both periods when equity valuations were also driven up by earnings rebounds and low real rates. The cross-country panel with time fixed effects (which absorbs these global shocks) is needed for cleaner identification.
-3. **US circularity in reverse:** The CAPE denominator uses 10-year average real earnings — a slow-moving series. The numerator (price) is the variable that jumps on QE announcements. This means CAPE is partly capturing price-level effects, which is exactly what we want, but makes it difficult to distinguish "QE raised valuations" from "QE raised prices while earnings were temporarily depressed."
+1. **Single-country inference:** With only one country and a handful of distinct QE episodes in the sample, the LP confidence intervals are wide, and most horizons are statistically indistinguishable from zero.
+2. **Sample sensitivity:** The LP results changed qualitatively when the sample was extended from 2023-09 to 2026-07 (see §10.3) — the peak point estimate fell from +2.33 to +0.61 and lost significance, while a new significant *negative* effect emerged at h = 21–24. A result this sensitive to 2.5 additional years of data is not yet a stable basis for causal claims about the sign or magnitude of the QE→valuation channel.
+3. **Confounding:** Even Spec (4) and the LP cannot cleanly isolate QE from confounders. Fed balance sheet expansions happened during the GFC recovery (2009–2014) and COVID (2020–2021) — both periods when equity valuations were also driven up by earnings rebounds and low real rates. The cross-country panel with time fixed effects (which absorbs these global shocks) is needed for cleaner identification.
+4. **US circularity in reverse:** The CAPE denominator uses 10-year average real earnings — a slow-moving series. The numerator (price) is the variable that jumps on QE announcements. This means CAPE is partly capturing price-level effects, which is exactly what we want, but makes it difficult to distinguish "QE raised valuations" from "QE raised prices while earnings were temporarily depressed."
 
 ---
 

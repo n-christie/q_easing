@@ -1,31 +1,31 @@
 ========================================================================
 US TIME SERIES REGRESSIONS — QE and Equity Valuations
-Generated: 2026-02-24 09:29:22
+Generated: 2026-08-17 12:24:30
 ========================================================================
 
 DATA
-  Sample: 2006-01 to 2023-09 (213 months)
+  Sample: 2006-01 to 2026-07 (246 months)
   Dependent variable: US CAPE (Shiller cyclically adjusted P/E)
   Key treatment: ΔCB/GDP = year-on-year change in Fed assets as % of GDP (pp)
 
 OLS RESULTS (Newey-West HAC, 12-month lag bandwidth)
 
   Spec 1 — Level CB/GDP (dep: CAPE):
-    beta = 0.95 CAPE pts per 1pp CB/GDP | SE=0.43 | p<0.05 **
+    beta = 1.72 CAPE pts per 1pp CB/GDP | SE=0.50 | p<0.01 ***
 
   Spec 2 — Δ CB/GDP (dep: CAPE):
-    beta = 1.29 CAPE pts per 1pp ΔCB/GDP | SE=0.89 | p≥0.10 (n.s.)
+    beta = 0.44 CAPE pts per 1pp ΔCB/GDP | SE=1.28 | p≥0.10 (n.s.)
 
   Spec 3 — Level CB/GDP + time trend (dep: CAPE):
-    beta = -0.44 CAPE pts per 1pp CB/GDP | SE=0.40 | p≥0.10 (n.s.)
+    beta = -0.84 CAPE pts per 1pp CB/GDP | SE=0.53 | p≥0.10 (n.s.)
 
   Spec 4 — Δ CB/GDP (dep: ΔCAPE monthly):
-    beta = 0.31 CAPE pts per 1pp ΔCB/GDP | SE=0.09 | p<0.01 ***
+    beta = 0.27 CAPE pts per 1pp ΔCB/GDP | SE=0.11 | p<0.05 **
 
 LOCAL PROJECTION (Jordà 2005)
 
-  Peak beta_h = 2.33 CAPE pts at h=13 months
-  Horizons with 90%-CI excluding zero: 11, 12, 13, 14, 15, 17, 18
+  Peak beta_h = 0.61 CAPE pts at h=13 months
+  Horizons with 90%-CI excluding zero: none
 
 INTERPRETATION
 
@@ -43,7 +43,7 @@ INTERPRETATION
   the same month the balance sheet expands faster-than-usual.
 
   The local projection traces the dynamic path: a 1pp rise in ΔCB/GDP is
-  associated with a peak CAPE response of 2.33 points at h=13 months,
+  associated with a peak CAPE response of 0.61 points at h=13 months,
   after which the effect fades. Confidence intervals are wide, reflecting
   the limited number of distinct QE episodes in the 2006-2023 sample.
 
